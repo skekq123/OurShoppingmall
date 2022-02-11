@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Order {
+public class Order extends Timestamped{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "order_id")

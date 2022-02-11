@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Product {
+public class Product extends Timestamped{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "product_id")

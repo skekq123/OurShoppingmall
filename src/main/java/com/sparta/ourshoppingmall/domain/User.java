@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class User {
+public class User extends Timestamped{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "user_id")
