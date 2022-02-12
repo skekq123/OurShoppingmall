@@ -1,6 +1,7 @@
 package com.sparta.ourshoppingmall.service;
 
 import com.sparta.ourshoppingmall.domain.Product;
+import com.sparta.ourshoppingmall.domain.User;
 import com.sparta.ourshoppingmall.repository.ProductRepository;
 import com.sparta.ourshoppingmall.responsedto.ProductResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,9 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public ProductResponseDto detailProduct(Long productId) {
+    public ProductResponseDto detailProduct(Long productId, User user) {
         Product product = productRepository.getById(productId);
-        //현재 로그인 정보 가져와서, productResponseDto에 useid, username 넣어주기
-        ProductResponseDto productResponseDto = new ProductResponseDto(product);
+        ProductResponseDto productResponseDto = new ProductResponseDto(product, user);
 
         return productResponseDto;
     }

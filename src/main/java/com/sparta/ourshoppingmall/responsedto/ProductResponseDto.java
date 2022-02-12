@@ -1,6 +1,7 @@
 package com.sparta.ourshoppingmall.responsedto;
 
 import com.sparta.ourshoppingmall.domain.Product;
+import com.sparta.ourshoppingmall.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ public class ProductResponseDto {
     Long productUserId;
     String productUsername;
 
-    public ProductResponseDto(Product product) {
+    public ProductResponseDto(Product product, User user) {
         this.productId = product.getId();
         this.status = product.getStatus();
         this.title = product.getTitle();
@@ -35,7 +36,7 @@ public class ProductResponseDto {
         this.address = product.getAddress();
         this.desc = product.getDesc();
         this.modifiedAt = product.getModifiedAt();
-//        this.productUserId = ;
-//        this.productUsername = ;
+        this.productUserId = user.getId();
+        this.productUsername = user.getUsername();
     }
 }
