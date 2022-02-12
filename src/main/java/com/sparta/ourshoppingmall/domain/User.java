@@ -1,5 +1,7 @@
 package com.sparta.ourshoppingmall.domain;
 
+
+import com.sparta.ourshoppingmall.requestdto.SignupRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,4 +35,15 @@ public class User extends Timestamped{
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
+
+    public User(SignupRequestDto signupRequestDto){
+        this.email = signupRequestDto.getEmail();
+        this.username = signupRequestDto.getUsername();
+    }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
 }
