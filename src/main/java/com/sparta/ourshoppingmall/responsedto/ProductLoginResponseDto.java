@@ -13,4 +13,13 @@ public class ProductLoginResponseDto {
     private Long userId;
     private String username;
     private List<ProductResponseDto> productResponseDtos;
+
+    public ProductLoginResponseDto (
+            Long userId,
+            String username,
+            List<ProductResponseDto> productResponseDtos) {
+        this.userId = userId;
+        this.username = username;
+        this.productResponseDtos = productResponseDtos;
+    }
 }

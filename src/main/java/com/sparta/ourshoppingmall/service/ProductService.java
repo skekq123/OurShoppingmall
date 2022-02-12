@@ -8,12 +8,12 @@ import com.sparta.ourshoppingmall.responsedto.ProductLoginResponseDto;
 import com.sparta.ourshoppingmall.responsedto.ProductResponseDto;
 import com.sparta.ourshoppingmall.validator.ProductValidator;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,37 +25,42 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     // 상품 등록
-    public Product registerProduct(ProductRequestDto productRequestDto) {
+    @Transactional
+    public Product registerProduct(ProductRequestDto productRequestDto, User user) {
         productValidator.validateProductInput(productRequestDto);
-        return productRepository.save(productRequestDto.toEntity());
+        return productRepository.save(productRequestDto.toEntity(user));
     }
 
     // 상품 전체 조회
-    public List<ProductLoginResponseDto> viewProducts() {
-        List<ProductLoginResponseDto> productLoginResponseDtos = new ArrayList<>();
-//        List<Product> products = productRepository.findAll();
+    @Transactional
+    public List<ProductLoginResponseDto> viewProducts(Long userId, String username) {
         List<ProductResponseDto> productResponseDtos = productRepository.findAll().stream().map(
-                Product::toResponseDto).collect(Collectors.toList());
+                product -> product.toResponseDto()).collect(Collectors.toList());
 
-
+        List<ProductLoginResponseDto> productLoginResponseDtos = new ArrayList<>();
+        ProductLoginResponseDto productLoginResponseDto = new ProductLoginResponseDto(userId, username,productResponseDtos);
+        productLoginResponseDtos.add(productLoginResponseDto);
 
         return productLoginResponseDtos;
     }
 
     // 상품 수정
-    public  Product updateProduct(Long productId, ProductRequestDto productRequestDto) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다."));
+    @Transactional
+    public  Product updateProduct(Long userId, Long productId, ProductRequestDto productRequestDto) {
+        Product product = productRepository.findByIdAndUserId(productId, userId);
         product.updateProduct(productRequestDto);
         productRepository.save(product);
         return product;
     }
 
     // 상품 삭제
-    public Product deleteProduct(Long productId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다."));
-        productRepository.delete(product);
-        return product;
+    @Transactional
+    public Boolean deleteProduct(Long userId, Long productId) {
+        productRepository.findByIdAndUserId(productId, userId);
+        productRepository.deleteById(productId);
+        Optional<Product> product = productRepository.findById(productId);
+        if (product.isPresent()) {
+            return false;
+        }else return true;
     }
 }
