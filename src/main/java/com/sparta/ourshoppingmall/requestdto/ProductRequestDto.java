@@ -2,13 +2,13 @@ package com.sparta.ourshoppingmall.requestdto;
 
 import com.sparta.ourshoppingmall.domain.Product;
 import com.sparta.ourshoppingmall.domain.User;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductRequestDto {
     private String title;
     private int price;
