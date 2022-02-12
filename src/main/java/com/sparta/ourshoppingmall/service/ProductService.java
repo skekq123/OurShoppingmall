@@ -59,4 +59,10 @@ public class ProductService {
             return false;
         }else return true;
     }
+    // 상품 상세
+    public ProductResponseDto detailProduct(Long productId, User user) {
+        Product product = productRepository.getById(productId);
+        ProductResponseDto productResponseDto = new ProductResponseDto(product, user);
+        return productResponseDto;
+    }
 }
