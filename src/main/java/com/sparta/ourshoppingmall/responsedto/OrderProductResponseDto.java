@@ -1,33 +1,34 @@
 package com.sparta.ourshoppingmall.responsedto;
 
+import com.sparta.ourshoppingmall.domain.Order;
 import com.sparta.ourshoppingmall.domain.Product;
 import com.sparta.ourshoppingmall.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Builder;
 import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ProductResponseDto {
-    private Long productId;
-    private String title;
-    private String img;
-    private int price;
-    private String category;
-    private String address;
-    private String desc;
-    private Boolean status;
-    private LocalDateTime modifiedAt;
-    private Long productUserId;
-    private String productUsername;
+public class OrderProductResponseDto {
+    Long productId;
+    Boolean status;
+    String title;
+    String img;
+    int price;
+    String category;
+    String address;
+    String desc;
+    LocalDateTime modifiedAt;
+    Long productUserId;
+    String productUsername;
+    LocalDateTime orderCreatedAt;
 
-    public ProductResponseDto(Product product, User user) {
+    public OrderProductResponseDto(Product product, User user, Order order) {
         this.productId = product.getId();
         this.status = product.getStatus();
         this.title = product.getTitle();
@@ -39,5 +40,6 @@ public class ProductResponseDto {
         this.modifiedAt = product.getModifiedAt();
         this.productUserId = user.getId();
         this.productUsername = user.getUsername();
+        this.orderCreatedAt = order.getCreatedAt();
     }
 }
