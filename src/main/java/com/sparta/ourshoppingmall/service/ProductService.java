@@ -25,14 +25,12 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     // 상품 등록
-    @Transactional
     public Product registerProduct(ProductRequestDto productRequestDto, User user) {
         productValidator.validateProductInput(productRequestDto);
         return productRepository.save(productRequestDto.toEntity(user));
     }
 
     // 상품 전체 조회
-    @Transactional
     public List<ProductLoginResponseDto> viewProducts(Long userId, String username) {
         List<ProductResponseDto> productResponseDtos = productRepository.findAll().stream().map(
                 product -> product.toResponseDto()).collect(Collectors.toList());
@@ -45,7 +43,6 @@ public class ProductService {
     }
 
     // 상품 수정
-    @Transactional
     public  Product updateProduct(Long userId, Long productId, ProductRequestDto productRequestDto) {
         Product product = productRepository.findByIdAndUserId(productId, userId);
         product.updateProduct(productRequestDto);
@@ -54,7 +51,6 @@ public class ProductService {
     }
 
     // 상품 삭제
-    @Transactional
     public Boolean deleteProduct(Long userId, Long productId) {
         productRepository.findByIdAndUserId(productId, userId);
         productRepository.deleteById(productId);
