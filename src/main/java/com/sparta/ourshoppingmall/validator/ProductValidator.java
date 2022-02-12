@@ -11,8 +11,12 @@ public class ProductValidator {
             throw new IllegalArgumentException("가격은 0원 이상으로 등록 바랍니다.");
         }
 
-        if (productRequestDto.getDesc().length() < 255) {
+        if (productRequestDto.getDesc().length() > 255) {
             throw new IllegalArgumentException("상품 설명은 255자 이내로 작성 바랍니다.");
+        }
+
+        if (productRequestDto.getAddress().length() > 10) {
+            throw new IllegalArgumentException("주소는 10자 이내로 작성 바랍니다.");
         }
     }
 }
