@@ -32,7 +32,7 @@ public class ProductService {
     }
 
     // 상품 전체 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ProductLoginResponseDto> viewProducts(Long userId, String username) {
         List<ProductResponseDto> productResponseDtos = productRepository.findAll().stream().map(
                 product -> product.toResponseDto()).collect(Collectors.toList());
