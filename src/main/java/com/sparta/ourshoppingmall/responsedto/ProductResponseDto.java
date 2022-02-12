@@ -27,7 +27,7 @@ public class ProductResponseDto {
     private Long productUserId;
     private String productUsername;
 
-    public ProductResponseDto(Product product, User user) {
+    public ProductResponseDto(Product product, Long userId, String username) {
         this.productId = product.getId();
         this.status = product.getStatus();
         this.title = product.getTitle();
@@ -37,7 +37,7 @@ public class ProductResponseDto {
         this.address = product.getAddress();
         this.desc = product.getDesc();
         this.modifiedAt = product.getModifiedAt();
-        this.productUserId = user.getId();
-        this.productUsername = user.getUsername();
+        this.productUserId = userId;
+        this.productUsername = username;
     }
 }
