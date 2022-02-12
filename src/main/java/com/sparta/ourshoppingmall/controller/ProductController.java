@@ -8,6 +8,7 @@ import com.sparta.ourshoppingmall.responsedto.ProductResponseDto;
 import com.sparta.ourshoppingmall.security.UserDetailsImpl;
 import com.sparta.ourshoppingmall.service.ProductService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +38,12 @@ public class ProductController {
     // 상품 전체 조회
     @GetMapping("/product")
     public List<ProductLoginResponseDto> viewRestaurants(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        Long userId = userDetails.getUser().getId();
-        String username = userDetails.getUser().getUsername();
+        Long userId = null;
+        String username =null;
+        if(userDetails !=null){
+            userId = userDetails.getUser().getId();
+            username = userDetails.getUser().getUsername();
+        }
         return productService.viewProducts(userId, username);
     }
 
