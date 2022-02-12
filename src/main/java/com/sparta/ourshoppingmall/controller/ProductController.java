@@ -76,8 +76,7 @@ public class ProductController {
 
     // 상품 상세
     @GetMapping("/product/{productId}")
-    public ProductResponseDto detailProduct(@PathVariable Long productId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        User user = userDetails.getUser();
-        return productService.detailProduct(productId, user);
+    public ProductResponseDto detailProduct(@PathVariable Long productId) {
+        return productService.detailProduct(productId);
     }
 }
