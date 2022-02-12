@@ -55,10 +55,10 @@ public class Product extends Timestamped{
         this.desc = productRequestDto.getDesc();
     }
 
-    public ProductResponseDto toResponseDto(User user) {
+    public ProductResponseDto toResponseDto() {
         return ProductResponseDto.builder()
-                .userId(user.getId())
-                .username(user.getUsername())
+                .productUserId(user.getId())
+                .productUsername(user.getUsername())
                 .productId(this.id)
                 .title(this.title)
                 .img(this.img)

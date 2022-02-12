@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ProductResponseDto {
-    private Long userId;
-    private String username;
     private Long productId;
     private String title;
     private String img;
@@ -21,4 +19,6 @@ public class ProductResponseDto {
     private String desc;
     private Boolean status;
     private LocalDateTime modifiedAt;
+    private Long productUserId;
+    private String productUsername;
 }

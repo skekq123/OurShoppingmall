@@ -1,2 +1,16 @@
-package com.sparta.ourshoppingmall.responsedto;public class ProductLoginResponseDto {
+package com.sparta.ourshoppingmall.responsedto;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+
+@Builder
+@Getter
+@Setter
+public class ProductLoginResponseDto {
+    private Long userId;
+    private String username;
+    private List<ProductResponseDto> productResponseDtos;
 }

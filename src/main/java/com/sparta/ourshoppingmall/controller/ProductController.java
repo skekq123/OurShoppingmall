@@ -3,6 +3,7 @@ package com.sparta.ourshoppingmall.controller;
 import com.sparta.ourshoppingmall.domain.Product;
 import com.sparta.ourshoppingmall.domain.User;
 import com.sparta.ourshoppingmall.requestdto.ProductRequestDto;
+import com.sparta.ourshoppingmall.responsedto.ProductLoginResponseDto;
 import com.sparta.ourshoppingmall.responsedto.ProductResponseDto;
 import com.sparta.ourshoppingmall.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -20,28 +21,34 @@ public class ProductController {
     // 상품 등록
     @PostMapping("/product")
     public ResponseEntity registerProduct(@RequestBody ProductRequestDto productRequestDto){
-        productService.registerProduct(productRequestDto);
-        return ResponseEntity.ok().body(null);
+        Product product = productService.registerProduct(productRequestDto);
+        if (product != null)
+            return ResponseEntity.ok().body(null);
+        else return ResponseEntity.badRequest().body(null);
     }
 
     // 상품 전체 조회
     @GetMapping("/product")
-    public List<ProductResponseDto> viewRestaurants(User user) {
-        return productService.viewProducts(user);
+    public List<ProductLoginResponseDto> viewRestaurants() {
+        return productService.viewProducts();
     }
 
     // 상품 수정
     @PutMapping("/product/{productId}")
     public ResponseEntity updateProduct(@PathVariable Long productId, @RequestBody ProductRequestDto productRequestDto) {
-        productService.updateProduct(productId, productRequestDto);
-        return ResponseEntity.ok().body(null);
+        Product product = productService.updateProduct(productId, productRequestDto);
+        if (product != null)
+            return ResponseEntity.ok().body(null);
+        else return ResponseEntity.badRequest().body(null);
     }
 
     // 상품 삭제
     @DeleteMapping("/product/{productId}")
     public ResponseEntity deleteProduct(@PathVariable Long productId) {
-        productService.deleteProduct(productId);
-        return ResponseEntity.ok().body(null);
+        Product product = productService.deleteProduct(productId);
+        if (product == null)
+            return ResponseEntity.ok().body(null);
+        else return ResponseEntity.badRequest().body(null);
     }
 }
 
