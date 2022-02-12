@@ -4,6 +4,7 @@ import com.sparta.ourshoppingmall.domain.Product;
 import com.sparta.ourshoppingmall.domain.User;
 import com.sparta.ourshoppingmall.requestdto.ProductRequestDto;
 import com.sparta.ourshoppingmall.responsedto.ProductLoginResponseDto;
+import com.sparta.ourshoppingmall.responsedto.ProductResponseDto;
 import com.sparta.ourshoppingmall.security.UserDetailsImpl;
 import com.sparta.ourshoppingmall.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -67,6 +68,11 @@ public class ProductController {
             return ResponseEntity.ok().body(null);
         else return ResponseEntity.badRequest().body(null);
     }
+
+    // 상품 상세
+    @GetMapping("/product/{productId}")
+    public ProductResponseDto detailProduct(@PathVariable Long productId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        User user = userDetails.getUser();
+        return productService.detailProduct(productId, user);
+    }
 }
-
-
