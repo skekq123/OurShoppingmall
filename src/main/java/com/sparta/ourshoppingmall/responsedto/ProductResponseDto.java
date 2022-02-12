@@ -5,26 +5,27 @@ import com.sparta.ourshoppingmall.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ProductResponseDto {
-    Long productId;
-    Boolean status;
-    String title;
-    String img;
-    int price;
-    String category;
-    String address;
-    String desc;
-    LocalDateTime modifiedAt;
-    Long productUserId;
-    String productUsername;
+    private Long productId;
+    private String title;
+    private String img;
+    private int price;
+    private String category;
+    private String address;
+    private String desc;
+    private Boolean status;
+    private LocalDateTime modifiedAt;
+    private Long productUserId;
+    private String productUsername;
 
     public ProductResponseDto(Product product, User user) {
         this.productId = product.getId();
