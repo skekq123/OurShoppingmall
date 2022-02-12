@@ -34,7 +34,7 @@ public class UserController {
         User user = userDetails.getUser();
         log.info("userData: {}, {}", user.getUsername(), user.getEmail());
         if (userDetails != null) {
-            return ResponseEntity.ok().body("null");
+            return ResponseEntity.ok().body(null);
         } else {
             return ResponseEntity.badRequest().body(null);
         }
