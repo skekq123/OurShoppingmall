@@ -31,6 +31,7 @@ public class ProductService {
     }
 
     // 상품 전체 조회
+    @Transactional(readOnly = true)
     public List<ProductLoginResponseDto> viewProducts(Long userId, String username) {
         List<ProductResponseDto> productResponseDtos = productRepository.findAll().stream().map(
                 product -> product.toResponseDto()).collect(Collectors.toList());
@@ -60,9 +61,12 @@ public class ProductService {
         }else return true;
     }
     // 상품 상세
-    public ProductResponseDto detailProduct(Long productId, User user) {
+    public ProductResponseDto detailProduct(Long productId) {
         Product product = productRepository.getById(productId);
-        ProductResponseDto productResponseDto = new ProductResponseDto(product, user);
+        User user = product.getUser();
+        String username = user.getUsername();
+        Long userId = user.getId();
+        ProductResponseDto productResponseDto = new ProductResponseDto(product, userId, username);
         return productResponseDto;
     }
 }
