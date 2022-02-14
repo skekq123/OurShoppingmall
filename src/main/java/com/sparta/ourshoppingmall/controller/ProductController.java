@@ -8,12 +8,14 @@ import com.sparta.ourshoppingmall.responsedto.ProductResponseDto;
 import com.sparta.ourshoppingmall.security.UserDetailsImpl;
 import com.sparta.ourshoppingmall.service.ProductService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @AllArgsConstructor
 public class ProductController {
@@ -36,8 +38,12 @@ public class ProductController {
     // 상품 전체 조회
     @GetMapping("/product")
     public List<ProductLoginResponseDto> viewRestaurants(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        Long userId = userDetails.getUser().getId();
-        String username = userDetails.getUser().getUsername();
+        Long userId = null;
+        String username =null;
+        if(userDetails !=null){
+            userId = userDetails.getUser().getId();
+            username = userDetails.getUser().getUsername();
+        }
         return productService.viewProducts(userId, username);
     }
     // 상품 수정
@@ -69,8 +75,7 @@ public class ProductController {
 
     // 상품 상세
     @GetMapping("/product/{productId}")
-    public ProductResponseDto detailProduct(@PathVariable Long productId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        User user = userDetails.getUser();
-        return productService.detailProduct(productId, user);
+    public ProductResponseDto detailProduct(@PathVariable Long productId) {
+        return productService.detailProduct(productId);
     }
 }
