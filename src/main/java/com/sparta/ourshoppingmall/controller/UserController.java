@@ -27,13 +27,6 @@ public class UserController {
             return ResponseEntity.badRequest().body(null);
         }
     }
-
-    @GetMapping("/success")
-    public String login() {
-        return "redirect:http://localhost:3000/";
-    }
-
-
 }
 
 

@@ -35,7 +35,7 @@ public class ProductController {
 
     // 상품 전체 조회
     @GetMapping("/product")
-    public List<ProductLoginResponseDto> viewRestaurants(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public List<ProductLoginResponseDto> viewProducts(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         Long userId = null;
         String username =null;
         if(userDetails !=null){
