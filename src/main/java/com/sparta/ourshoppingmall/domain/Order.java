@@ -19,6 +19,7 @@ public class Order extends Timestamped{
     @Column(name = "order_id")
     private Long id;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -33,5 +34,7 @@ public class Order extends Timestamped{
         user.getOrders().add(this);
         product.setOrder(this);
     }
+
+
 
 }

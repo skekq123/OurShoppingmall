@@ -43,7 +43,7 @@ public class Product extends Timestamped{
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "product", fetch=FetchType.LAZY)
     private Order order;
 
     public void updateProduct(ProductRequestDto productRequestDto) {

@@ -30,10 +30,10 @@ public class User extends Timestamped{
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
     private List<Product> products;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
     private List<Order> orders;
 
     public User(SignupRequestDto signupRequestDto){

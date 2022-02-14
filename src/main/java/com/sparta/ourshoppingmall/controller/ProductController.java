@@ -44,7 +44,6 @@ public class ProductController {
         }
         return productService.viewProducts(userId, username);
     }
-
     // 상품 수정
     @PutMapping("/product/{productId}")
     public ResponseEntity updateProduct(
