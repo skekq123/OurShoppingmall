@@ -27,9 +27,9 @@ public class OrderController {
         if(product != null) return ResponseEntity.ok().body(null);
         else return ResponseEntity.badRequest().body(null);
     }
-    @GetMapping("/orders")
+   /* @GetMapping("/orders")
     public OrderResponseDto getOrders(@AuthenticationPrincipal UserDetailsImpl userDetails){
         User user = userDetails.getUser();
         return orderService.getOrders(user);
-    }
+    }*/
 }
