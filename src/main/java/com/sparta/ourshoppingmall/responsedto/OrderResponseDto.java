@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -16,7 +15,6 @@ import java.util.List;
 public class OrderResponseDto {
     private Long userId;
     private String username;
-    private LocalDateTime createdAt;
     List<OrderProductResponseDto> products;
 
     public OrderResponseDto(List<OrderProductResponseDto> products, User user) {

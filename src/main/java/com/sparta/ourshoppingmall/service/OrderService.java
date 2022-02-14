@@ -8,6 +8,7 @@ import com.sparta.ourshoppingmall.repository.ProductRepository;
 import com.sparta.ourshoppingmall.repository.UserRepository;
 import com.sparta.ourshoppingmall.responsedto.OrderProductResponseDto;
 import com.sparta.ourshoppingmall.responsedto.OrderResponseDto;
+import com.sparta.ourshoppingmall.validator.OrderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,22 +21,29 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final OrderValidator orderValidator;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository) {
+    public OrderService(OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, OrderValidator orderValidator) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
+        this.orderValidator = orderValidator;
     }
 
 
     @Transactional
     public Product createOrder(Long productId, User user) {
         Product product = productRepository.getById(productId);
+        orderValidator.IsProductSold(product);
+        orderValidator.validateOrder(product, user);
+
+        product.setStatus(true);
         Order order = new Order();
+
         order.setProduct(product);
         order.setUser(user);
-
+        product.setOrder(order);
         user.getOrders().add(order);
 
         orderRepository.save(order);
