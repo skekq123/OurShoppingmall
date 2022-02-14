@@ -1,8 +1,10 @@
 package com.sparta.ourshoppingmall.security;
 
+import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,6 +38,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     AuthFailureHandler authFailureHandler;
 
+    @Autowired
+    AuthSuccessHandler authSuccessHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -44,20 +49,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .anyRequest().permitAll()
-                .and().cors()
+                .and().cors().configurationSource(configurationSource())
                 .and()
                 // 로그인 기능 허용
                 .formLogin()
                 .usernameParameter("email")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/success")
+                .successHandler(authSuccessHandler)
+//                .defaultSuccessUrl("http://localhost:3000/")
                 .failureHandler(authFailureHandler)
                 .permitAll()
                 .and()
                 // 로그아웃 기능 허용
                 .logout()
                 .logoutUrl("/logout")
+                .logoutSuccessUrl("http://localhost:3000/")
                 .permitAll()
                 .and()
                 .exceptionHandling()
@@ -70,8 +76,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         corsConfiguration.addAllowedOrigin("http://localhost:3000");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addExposedHeader("*");
         corsConfiguration.setAllowCredentials(true);
-
+        corsConfiguration.validateAllowCredentials();
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
