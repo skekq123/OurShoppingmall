@@ -40,7 +40,6 @@ public class ProductController {
         String username = userDetails.getUser().getUsername();
         return productService.viewProducts(userId, username);
     }
-
     // 상품 수정
     @PutMapping("/product/{productId}")
     public ResponseEntity updateProduct(
