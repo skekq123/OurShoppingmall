@@ -23,12 +23,26 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
+        String name = null;
+        String value = null;
+
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", "*");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setHeader("SameSite", "none");
+        response.setHeader("Secure", "true");
         response.setStatus(200);
-        response.sendRedirect("http://localhost:3000/");
+        
+//        Cookie[] cookies = request.getCookies();
+//        for (Cookie cookie : cookies) {
+//            name = cookie.getName();
+//            value = cookie.getValue();
+//            System.out.println(name);
+//            System.out.println(value);
+//        }
+//        Cookie cookie = new Cookie(name + "1", value);
+//        response.addCookie(cookie);
     }
 }
