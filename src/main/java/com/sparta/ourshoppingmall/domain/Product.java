@@ -39,7 +39,7 @@ public class Product extends Timestamped{
     @Column(nullable = false)
     private Boolean status = false;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

@@ -19,11 +19,22 @@ public class Order extends Timestamped{
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    public Order(Product product, User user){
+        this.product = product;
+        this.user = user;
+        user.getOrders().add(this);
+        product.setOrder(this);
+    }
+
+
+
 }

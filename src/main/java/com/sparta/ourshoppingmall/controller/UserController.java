@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RequiredArgsConstructor
 @Controller
 @Slf4j
@@ -28,17 +27,10 @@ public class UserController {
             return ResponseEntity.badRequest().body(null);
         }
     }
-    @ResponseBody
-    @GetMapping("/success")
-    public ResponseEntity login(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        User user = userDetails.getUser();
-        log.info("userData: {}, {}", user.getUsername(), user.getEmail());
-        if (userDetails != null) {
-            return ResponseEntity.ok().body(null);
-        } else {
-            return ResponseEntity.badRequest().body(null);
-        }
 
+    @GetMapping("/success")
+    public String login() {
+        return "redirect:http://localhost:3000/";
     }
 
 

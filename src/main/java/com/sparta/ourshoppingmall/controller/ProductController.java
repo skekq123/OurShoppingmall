@@ -8,14 +8,12 @@ import com.sparta.ourshoppingmall.responsedto.ProductResponseDto;
 import com.sparta.ourshoppingmall.security.UserDetailsImpl;
 import com.sparta.ourshoppingmall.service.ProductService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @AllArgsConstructor
 public class ProductController {
