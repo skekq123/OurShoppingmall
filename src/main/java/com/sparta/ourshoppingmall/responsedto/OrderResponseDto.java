@@ -16,7 +16,6 @@ import java.util.List;
 public class OrderResponseDto {
     private Long userId;
     private String username;
-    private LocalDateTime createdAt;
     List<OrderProductResponseDto> products;
 
     public OrderResponseDto(List<OrderProductResponseDto> products, User user) {
